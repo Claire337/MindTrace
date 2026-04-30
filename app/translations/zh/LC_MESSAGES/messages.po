@@ -1,0 +1,615 @@
+# Chinese translations for MindTrace
+msgid ""
+msgstr ""
+"Project-Id-Version: MindTrace 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-09 10:00+0000\n"
+"PO-Revision-Date: 2026-02-09 10:00+0000\n"
+"Last-Translator: \n"
+"Language: zh\n"
+"Language-Team: Chinese\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 4.0.0\n"
+
+msgid "Dashboard"
+msgstr "仪表盘"
+
+msgid "New Entry"
+msgstr "新建记录"
+
+msgid "History"
+msgstr "历史记录"
+
+msgid "Analytics"
+msgstr "数据分析"
+
+msgid "Tools"
+msgstr "工具箱"
+
+msgid "Settings"
+msgstr "设置"
+
+msgid "Logout"
+msgstr "退出"
+
+msgid "Login"
+msgstr "登录"
+
+msgid "Register"
+msgstr "注册"
+
+msgid "Email"
+msgstr "邮箱"
+
+msgid "Password"
+msgstr "密码"
+
+msgid "Remember me"
+msgstr "记住我"
+
+msgid "Don't have an account?"
+msgstr "还没有账户？"
+
+msgid "Register here"
+msgstr "在这里注册"
+
+msgid "Demo Account:"
+msgstr "演示账户："
+
+msgid "Username"
+msgstr "用户名"
+
+msgid "Confirm Password"
+msgstr "确认密码"
+
+msgid "Minimum 8 characters"
+msgstr "至少8个字符"
+
+msgid "Already have an account?"
+msgstr "已有账户？"
+
+msgid "Login here"
+msgstr "在这里登录"
+
+msgid "Good Morning"
+msgstr "早上好"
+
+msgid "Good Afternoon"
+msgstr "下午好"
+
+msgid "Good Evening"
+msgstr "晚上好"
+
+msgid "Welcome to MindTrace - Track your emotions, discover patterns, and receive AI insights."
+msgstr "欢迎来到 MindTrace - 记录情绪，发现规律，获取AI洞察。"
+
+msgid "How are you feeling today?"
+msgstr "今天心情如何？"
+
+msgid "Check In"
+msgstr "打卡"
+
+msgid "View your progress"
+msgstr "查看你的进展"
+
+msgid "View History"
+msgstr "查看历史"
+
+msgid "Dashboard content will be populated with your entries"
+msgstr "仪表盘内容将根据你的记录填充"
+
+msgid "Account Information"
+msgstr "账户信息"
+
+msgid "Email:"
+msgstr "邮箱："
+
+msgid "Username:"
+msgstr "用户名："
+
+msgid "Member Since:"
+msgstr "注册时间："
+
+msgid "Language Preference"
+msgstr "语言偏好"
+
+msgid "More settings coming soon..."
+msgstr "更多设置敬请期待..."
+
+msgid "Please log in to access this page."
+msgstr "请登录以访问此页面。"
+
+msgid "AI-generated content is not a substitute for professional mental health support."
+msgstr "AI生成的内容不能替代专业心理健康支持。"
+
+msgid "Breathing Trainer"
+msgstr "呼吸训练"
+
+msgid "First Aid Card"
+msgstr "应急卡"
+
+msgid "Emotion First Aid"
+msgstr "情绪急救"
+
+msgid "Daily Insight"
+msgstr "每日洞察"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "Select date for this entry"
+msgstr "选择此条记录的日期"
+
+msgid "How are you feeling?"
+msgstr "你现在感觉如何？"
+
+msgid "Intensity"
+msgstr "强度"
+
+msgid "How intense is this feeling?"
+msgstr "这个感受有多强烈？"
+
+msgid "What happened?"
+msgstr "发生了什么？"
+
+msgid "Describe what happened, what triggered this feeling, your thoughts..."
+msgstr "描述发生了什么、什么引发了这个感受、你的想法..."
+
+msgid "Be as detailed as you want"
+msgstr "尽可能详细"
+
+msgid "Tags"
+msgstr "标签"
+
+msgid "optional"
+msgstr "可选"
+
+msgid "Save Entry"
+msgstr "保存记录"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Filter by mood"
+msgstr "按心情筛选"
+
+msgid "Filter"
+msgstr "筛选"
+
+msgid "Clear"
+msgstr "清除"
+
+msgid "No entries yet"
+msgstr "还没有记录"
+
+msgid "Create your first entry"
+msgstr "创建第一条记录"
+
+msgid "Previous"
+msgstr "上一页"
+
+msgid "Next"
+msgstr "下一页"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Back"
+msgstr "返回"
+
+msgid "Journal Entry"
+msgstr "日记条目"
+
+msgid "Last updated"
+msgstr "最后更新"
+
+msgid "AI Analysis"
+msgstr "AI 分析"
+
+msgid "Sentiment"
+msgstr "情感"
+
+msgid "Detected Emotions"
+msgstr "检测到的情绪"
+
+msgid "Keywords"
+msgstr "关键词"
+
+msgid "Edit Entry"
+msgstr "编辑记录"
+
+msgid "Update Entry"
+msgstr "更新记录"
+
+msgid "AI Insight"
+msgstr "AI 洞察"
+
+msgid "Back to Entry"
+msgstr "返回记录"
+
+msgid "Suggestions"
+msgstr "建议"
+
+msgid "Today's Small Task"
+msgstr "今日小任务"
+
+msgid "Generated"
+msgstr "生成于"
+
+msgid "Context"
+msgstr "背景信息"
+
+msgid "Mood"
+msgstr "心情"
+
+msgid "Weekly Summary"
+msgstr "周总结"
+
+msgid "This Week's Entries"
+msgstr "本周记录"
+
+msgid "No entries this week yet"
+msgstr "本周还没有记录"
+
+msgid "Entries This Week"
+msgstr "本周条目数"
+
+msgid "Average Intensity"
+msgstr "平均强度"
+
+msgid "Total Entries"
+msgstr "总记录数"
+
+msgid "Max Intensity"
+msgstr "最高强度"
+
+msgid "Min Intensity"
+msgstr "最低强度"
+
+msgid "Mood Intensity Trend"
+msgstr "心情强度趋势"
+
+msgid "Mood Distribution"
+msgstr "心情分布"
+
+msgid "Recent Entries"
+msgstr "最近的记录"
+
+msgid "Sentiment"
+msgstr "情感倾向"
+
+msgid "No entries to analyze yet"
+msgstr "还没有可分析的记录"
+
+msgid "Wellness Tools & Resources"
+msgstr "健康工具与资源"
+
+msgid "Practical tools to help manage emotions and improve mental wellbeing"
+msgstr "实用工具，帮助管理情绪和改善心理健康"
+
+msgid "Breathing Trainer"
+msgstr "呼吸训练"
+
+msgid "Guided breathing exercises using the 4-7-8 technique to reduce anxiety and stress"
+msgstr "使用 4-7-8 呼吸技巧的引导式呼吸练习，可减少焦虑和压力"
+
+msgid "Start"
+msgstr "开始"
+
+msgid "Emotion First Aid"
+msgstr "情绪急救"
+
+msgid "Quick tips and techniques for managing difficult emotions like anxiety, sadness, and anger"
+msgstr "用于管理焦虑、悲伤和愤怒等困难情绪的快速技巧和技术"
+
+msgid "Learn More"
+msgstr "了解更多"
+
+msgid "Resources"
+msgstr "资源"
+
+msgid "Collection of articles and guides about mental health and emotional wellbeing"
+msgstr "关于心理健康和情感幸福的文章和指南集合"
+
+msgid "Coming Soon"
+msgstr "敬请期待"
+
+msgid "Quick Tips"
+msgstr "快速提示"
+
+msgid "When You Feel Anxious"
+msgstr "当你感到焦虑时"
+
+msgid "Try the breathing trainer for immediate relief. The 4-7-8 technique takes just a few minutes."
+msgstr "尝试呼吸训练以获得立即缓解。4-7-8 技巧只需几分钟。"
+
+msgid "When You Feel Overwhelmed"
+msgstr "当你感到不知所措时"
+
+msgid "Check the Emotion First Aid for practical coping strategies and immediate relief techniques."
+msgstr "查阅情绪急救以获得实用的应对策略和立即缓解技术。"
+
+msgid "Daily Routine"
+msgstr "每日常规"
+
+msgid "Incorporate a 5-minute breathing session into your morning or evening routine for better emotional regulation."
+msgstr "将5分钟的呼吸练习纳入你的早晨或晚间日程，以获得更好的情绪调节。"
+
+msgid "Track and Reflect"
+msgstr "追踪和反思"
+
+msgid "Log your mood regularly and use the analytics to identify patterns and triggers."
+msgstr "定期记录你的心情，并使用分析工具来识别模式和触发因素。"
+
+msgid "Quick breathing exercises using the 4-7-8 technique"
+msgstr "使用 4-7-8 技巧的快速呼吸练习"
+
+msgid "Breathing exercises can help calm your nervous system and reduce anxiety. This 4-7-8 technique is proven to reduce stress."
+msgstr "呼吸练习可以帮助平静你的神经系统和减少焦虑。这个 4-7-8 技巧已被证明可以减少压力。"
+
+msgid "Instructions:"
+msgstr "说明："
+
+msgid "Breathe in for 4 counts"
+msgstr "吸气 4 下"
+
+msgid "Hold for 7 counts"
+msgstr "屏息 7 下"
+
+msgid "Breathe out for 8 counts"
+msgstr "呼气 8 下"
+
+msgid "Repeat for several cycles"
+msgstr "重复数个周期"
+
+msgid "Stop"
+msgstr "停止"
+
+msgid "Ready to start?"
+msgstr "准备好开始了吗？"
+
+msgid "Other Breathing Techniques"
+msgstr "其他呼吸技巧"
+
+msgid "Box Breathing"
+msgstr "方形呼吸法"
+
+msgid "Deep Breathing"
+msgstr "深呼吸"
+
+msgid "Quick tips and techniques to help manage difficult emotions"
+msgstr "帮助管理困难情绪的快速提示和技巧"
+
+msgid "Immediate Relief:"
+msgstr "立即缓解："
+
+msgid "Use 4-7-8 breathing technique"
+msgstr "使用 4-7-8 呼吸技巧"
+
+msgid "Ground yourself: 5 things you see, 4 you hear, 3 you touch"
+msgstr "让自己扎根：5 样你看到的、4 样你听到的、3 样你触摸到的"
+
+msgid "Take a 10-minute walk"
+msgstr "散步 10 分钟"
+
+msgid "Splash cold water on your face"
+msgstr "用冷水溅脸"
+
+msgid "Try Breathing Trainer"
+msgstr "尝试呼吸训练"
+
+msgid "Anxiety"
+msgstr "焦虑"
+
+msgid "Sadness"
+msgstr "悲伤"
+
+msgid "Allow yourself to feel your emotions"
+msgstr "允许自己感受情绪"
+
+msgid "Reach out to someone you trust"
+msgstr "与信任的人联系"
+
+msgid "Engage in activities you enjoy"
+msgstr "参与你喜欢的活动"
+
+msgid "Practice self-compassion"
+msgstr "练习自我同情"
+
+msgid "Spend time in nature or sunlight"
+msgstr "在自然界或阳光下花时间"
+
+msgid "Get Support"
+msgstr "获得支持"
+
+msgid "Anger"
+msgstr "愤怒"
+
+msgid "Take a 15-minute break"
+msgstr "休息 15 分钟"
+
+msgid "Physical exercise to release energy"
+msgstr "通过体育运动释放能量"
+
+msgid "Journal your feelings"
+msgstr "记录你的感受"
+
+msgid "Practice progressive muscle relaxation"
+msgstr "练习渐进式肌肉放松"
+
+msgid "Channel energy into something constructive"
+msgstr "将能量引导到建设性的事情中"
+
+msgid "Stress"
+msgstr "压力"
+
+msgid "Prioritize: focus on most important tasks"
+msgstr "优先考虑：专注于最重要的任务"
+
+msgid "Break tasks into smaller steps"
+msgstr "将任务分解为更小的步骤"
+
+msgid "Take short breaks"
+msgstr "休息一会儿"
+
+msgid "Practice meditation or mindfulness"
+msgstr "练习冥想或正念"
+
+msgid "Ensure adequate sleep and nutrition"
+msgstr "确保充足的睡眠和营养"
+
+msgid "Exhaustion"
+msgstr "疲劳"
+
+msgid "Take a nap or rest"
+msgstr "小睡或休息"
+
+msgid "Move your body gently"
+msgstr "轻轻地活动你的身体"
+
+msgid "Hydrate and eat something nutritious"
+msgstr "补充水分并吃一些有营养的食物"
+
+msgid "Reduce stimulation (screen time)"
+msgstr "减少刺激（屏幕时间）"
+
+msgid "Plan realistic goals for the day"
+msgstr "为今天制定现实的目标"
+
+msgid "Loneliness"
+msgstr "孤独"
+
+msgid "Join online communities"
+msgstr "加入在线社区"
+
+msgid "Volunteer or help someone"
+msgstr "志愿或帮助他人"
+
+msgid "Engage in group activities"
+msgstr "参与团体活动"
+
+msgid "General Tips"
+msgstr "一般提示"
+
+msgid "Daily Practices"
+msgstr "日常实践"
+
+msgid "Regular exercise (30 min/day)"
+msgstr "定期运动（每天 30 分钟）"
+
+msgid "Adequate sleep (7-9 hours)"
+msgstr "充足的睡眠（7-9 小时）"
+
+msgid "Healthy diet"
+msgstr "健康饮食"
+
+msgid "Meditation or mindfulness"
+msgstr "冥想或正念"
+
+msgid "When to Seek Help"
+msgstr "何时寻求帮助"
+
+msgid "Persistent sadness (>2 weeks)"
+msgstr "持久的悲伤（> 2 周）"
+
+msgid "Thoughts of self-harm"
+msgstr "自伤想法"
+
+msgid "Inability to function"
+msgstr "无法正常运作"
+
+msgid "Severe anxiety or panic"
+msgstr "严重焦虑或恐慌"
+
+msgid "Disclaimer:"
+msgstr "免责声明："
+
+msgid "This is not a substitute for professional mental health care. If you are in crisis, please contact emergency services or a mental health professional immediately."
+msgstr "这不能替代专业心理健康护理。如果你处于危机中，请立即联系紧急服务或心理健康专业人员。"
+
+msgid "If you need support, reach out:"
+msgstr "如果你需要支持，请伸出援手："
+
+msgid "Talk to a friend or family member"
+msgstr "与朋友或家庭成员交谈"
+
+msgid "Contact a mental health professional"
+msgstr "咨询心理健康专业人员"
+
+msgid "Call a mental health helpline"
+msgstr "致电心理健康援助热线"
+
+msgid "Visit a counseling service"
+msgstr "访问咨询服务"
+
+msgid "Session ended"
+msgstr "会话结束"
+
+msgid "Cycle"
+msgstr "周期"
+
+msgid "Custom…"
+msgstr "自定义…"
+
+msgid "Type your mood (e.g. tired, excited, numb…)"
+msgstr "输入你的心情（如：疲惫、兴奋、麻木…）"
+
+msgid "Press Enter or click elsewhere to confirm"
+msgstr "按 Enter 或点击其他地方确认"
+
+msgid "optional, multiple allowed"
+msgstr "可选，可多选"
+
+msgid "Add custom tag…"
+msgstr "添加自定义标签…"
+
+msgid "Add"
+msgstr "添加"
+
+msgid "chars"
+msgstr "字"
+
+msgid "Please select or enter your mood."
+msgstr "请选择或输入你的心情。"
+
+msgid "Change Username"
+msgstr "修改用户名"
+
+msgid "New Username"
+msgstr "新用户名"
+
+msgid "Update Username"
+msgstr "更新用户名"
+
+msgid "Change Password"
+msgstr "修改密码"
+
+msgid "Current Password"
+msgstr "当前密码"
+
+msgid "New Password"
+msgstr "新密码"
+
+msgid "Confirm New Password"
+msgstr "确认新密码"
+
+msgid "Passwords do not match"
+msgstr "两次密码不一致"
+
+msgid "Update Password"
+msgstr "更新密码"
+
+msgid "Your Account"
+msgstr "我的账户"
+
+msgid "Choose your preferred interface language"
+msgstr "选择你偏好的界面语言"
+
+msgid "Language"
+msgstr "语言"
+
+msgid "Member Since"
+msgstr "注册时间"

@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Settings') }} — MindTrace{% endblock %}
+
+{% block content %}
+<div style="max-width:520px;margin:0 auto">
+
+    <!-- Header -->
+    <div class="mb-5 fade-in-up">
+        <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;
+                   color:var(--text-muted);margin-bottom:0.5rem">
+            <i class="fas fa-cog me-1" style="opacity:0.6"></i>
+            {{ _('Settings') }}
+        </p>
+        <h1 class="display-title" style="font-size:2rem;margin-bottom:0.4rem">
+            {{ _('Your Account') }}
+        </h1>
+        <div class="accent-line mt-2 mb-0"></div>
+    </div>
+
+    <!-- Account info -->
+    <div class="card fade-in mb-4 stagger-1">
+        <div class="card-header">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;letter-spacing:-0.01em">
+                <i class="fas fa-user-circle me-2" style="opacity:0.4;font-size:0.85rem"></i>
+                {{ _('Account Information') }}
+            </span>
+        </div>
+        <div class="card-body">
+            <!-- Avatar + name -->
+            <div class="d-flex align-items-center gap-4 mb-4">
+                <div style="width:64px;height:64px;border-radius:50%;
+                             background:linear-gradient(135deg,#7b4de0,var(--accent-secondary));
+                             display:flex;align-items:center;justify-content:center;
+                             font-size:1.6rem;color:white;font-weight:600;flex-shrink:0;
+                             border:2px solid rgba(255,255,255,0.12);
+                             box-shadow:0 8px 24px rgba(123,77,224,0.3)">
+                    {{ current_user.username[0].upper() }}
+                </div>
+                <div>
+                    <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;
+                                 font-weight:500;color:var(--text-primary);letter-spacing:-0.01em;
+                                 margin-bottom:2px">
+                        {{ current_user.username }}
+                    </div>
+                    <div style="font-size:0.82rem;color:var(--text-muted)">
+                        {{ current_user.email }}
+                    </div>
+                </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">
+                <div style="padding:0.85rem 1rem;background:var(--bg-glass);
+                             border-radius:var(--radius-sm);border:1px solid var(--border-subtle)">
+                    <div class="section-label">{{ _('Email') }}</div>
+                    <div style="font-size:0.875rem;color:var(--text-secondary)">
+                        {{ current_user.email }}
+                    </div>
+                </div>
+                <div style="padding:0.85rem 1rem;background:var(--bg-glass);
+                             border-radius:var(--radius-sm);border:1px solid var(--border-subtle)">
+                    <div class="section-label">{{ _('Member Since') }}</div>
+                    <div style="font-size:0.875rem;color:var(--text-secondary)">
+                        {{ current_user.created_at.strftime('%b %Y') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Username -->
+    <div class="card fade-in mb-4 stagger-2">
+        <div class="card-header">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;letter-spacing:-0.01em">
+                <i class="fas fa-id-badge me-2" style="opacity:0.4;font-size:0.85rem"></i>
+                {{ _('Change Username') }}
+            </span>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{{ url_for('main.settings') }}">
+                <input type="hidden" name="action" value="change_username">
+                <div class="mb-3">
+                    <label for="username" class="form-label" style="font-size:0.82rem;color:var(--text-muted)">
+                        {{ _('New Username') }}
+                    </label>
+                    <input type="text" class="form-control" id="username" name="username"
+                           value="{{ current_user.username }}" minlength="2" maxlength="80" required>
+                </div>
+                <button type="submit" class="btn btn-sm btn-outline-secondary">
+                    <i class="fas fa-check me-1"></i> {{ _('Update Username') }}
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Change Password -->
+    <div class="card fade-in mb-4 stagger-3">
+        <div class="card-header">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;letter-spacing:-0.01em">
+                <i class="fas fa-lock me-2" style="opacity:0.4;font-size:0.85rem"></i>
+                {{ _('Change Password') }}
+            </span>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{{ url_for('main.settings') }}" id="pwForm">
+                <input type="hidden" name="action" value="change_password">
+                <div class="mb-3">
+                    <label for="current_password" class="form-label" style="font-size:0.82rem;color:var(--text-muted)">
+                        {{ _('Current Password') }}
+                    </label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="current_password"
+                               name="current_password" required autocomplete="current-password">
+                        <button class="btn btn-outline-secondary toggle-pw" type="button" data-target="current_password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="new_password" class="form-label" style="font-size:0.82rem;color:var(--text-muted)">
+                        {{ _('New Password') }}
+                    </label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="new_password"
+                               name="new_password" minlength="8" required autocomplete="new-password">
+                        <button class="btn btn-outline-secondary toggle-pw" type="button" data-target="new_password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="form-text">{{ _('Minimum 8 characters') }}</div>
+                </div>
+                <div class="mb-3">
+                    <label for="confirm_password" class="form-label" style="font-size:0.82rem;color:var(--text-muted)">
+                        {{ _('Confirm New Password') }}
+                    </label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="confirm_password"
+                               name="confirm_password" minlength="8" required autocomplete="new-password">
+                        <button class="btn btn-outline-secondary toggle-pw" type="button" data-target="confirm_password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div id="pwMatchHint" class="form-text" style="display:none;color:var(--accent-coral)">
+                        {{ _('Passwords do not match') }}
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-sm btn-outline-secondary" id="pwSubmitBtn">
+                    <i class="fas fa-key me-1"></i> {{ _('Update Password') }}
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Logout -->
+    <div class="text-center fade-in stagger-5">
+        <a href="{{ url_for('auth.logout') }}"
+           class="btn btn-outline-danger btn-sm">
+            <i class="fas fa-sign-out-alt me-1"></i> {{ _('Logout') }}
+        </a>
+    </div>
+</div>
+
+<script>
+// Toggle password visibility
+document.querySelectorAll('.toggle-pw').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const input = document.getElementById(this.dataset.target);
+        const icon = this.querySelector('i');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.replace('fa-eye', 'fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.replace('fa-eye-slash', 'fa-eye');
+        }
+    });
+});
+
+// Real-time password match check
+const newPw = document.getElementById('new_password');
+const confirmPw = document.getElementById('confirm_password');
+const pwMatchHint = document.getElementById('pwMatchHint');
+const pwSubmitBtn = document.getElementById('pwSubmitBtn');
+
+function checkMatch() {
+    if (!confirmPw.value) { pwMatchHint.style.display = 'none'; return; }
+    const match = newPw.value === confirmPw.value;
+    pwMatchHint.style.display = match ? 'none' : 'block';
+    pwSubmitBtn.disabled = !match;
+}
+newPw.addEventListener('input', checkMatch);
+confirmPw.addEventListener('input', checkMatch);
+</script>
+{% endblock %}

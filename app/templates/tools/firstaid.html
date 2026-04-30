@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Emotion First Aid') }} — MindTrace{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<div class="mb-5 fade-in-up">
+    <div class="d-flex align-items-start justify-content-between flex-wrap gap-3">
+        <div>
+            <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;
+                       color:var(--text-muted);margin-bottom:0.5rem">
+                🩹 {{ _('Emotion First Aid') }}
+            </p>
+            <h1 class="display-title" style="font-size:2rem;margin-bottom:0.4rem">
+                {{ _('Quick Relief Guide') }}
+            </h1>
+            <p style="color:var(--text-muted);font-size:0.875rem;margin:0">
+                {{ _('Quick tips and techniques to help manage difficult emotions') }}
+            </p>
+        </div>
+        <a href="{{ url_for('tools.index') }}" class="btn btn-outline-secondary btn-sm align-self-start">
+            <i class="fas fa-arrow-left me-1"></i> {{ _('Back') }}
+        </a>
+    </div>
+    <div class="accent-line mt-3 mb-0"></div>
+</div>
+
+<!-- Cards grid -->
+{% set cards = [
+    ('😰', _('Anxiety'), 'rgba(251,146,60,0.07)', 'rgba(251,146,60,0.22)', [
+        _('Use 4-7-8 breathing technique'),
+        _('Ground yourself: 5 things you see, 4 you hear, 3 you touch'),
+        _('Take a 10-minute walk'),
+        _('Splash cold water on your face')
+    ], 'breathing'),
+    ('😢', _('Sadness'), 'rgba(240,143,168,0.07)', 'rgba(240,143,168,0.22)', [
+        _('Allow yourself to feel your emotions'),
+        _('Reach out to someone you trust'),
+        _('Engage in activities you enjoy'),
+        _('Practice self-compassion'),
+        _('Spend time in nature or sunlight')
+    ], None),
+    ('😠', _('Anger'), 'rgba(244,131,122,0.07)', 'rgba(244,131,122,0.22)', [
+        _('Take a 15-minute break from the situation'),
+        _('Physical exercise to release energy'),
+        _('Journal your feelings'),
+        _('Practice progressive muscle relaxation'),
+        _('Channel energy into something constructive')
+    ], None),
+    ('😓', _('Stress'), 'rgba(232,199,122,0.07)', 'rgba(232,199,122,0.22)', [
+        _('Prioritize: focus on most important tasks'),
+        _('Break tasks into smaller steps'),
+        _('Take short, regular breaks'),
+        _('Practice meditation or mindfulness'),
+        _('Ensure adequate sleep and nutrition')
+    ], None),
+    ('😴', _('Exhaustion'), 'rgba(107,114,128,0.07)', 'rgba(150,160,180,0.20)', [
+        _('Take a nap or rest (20-30 min)'),
+        _('Move your body gently'),
+        _('Hydrate and eat something nutritious'),
+        _('Reduce stimulation (limit screen time)'),
+        _('Plan realistic goals for the day')
+    ], None),
+    ('😔', _('Loneliness'), 'rgba(180,157,250,0.07)', 'rgba(180,157,250,0.22)', [
+        _('Reach out to a friend or family member'),
+        _('Join online communities of interest'),
+        _('Volunteer or help someone nearby'),
+        _('Engage in group activities'),
+        _('Practice self-compassion and self-care')
+    ], None)
+] %}
+
+<div class="row g-3 mb-5">
+    {% for emoji, title, bg, border, tips, link in cards %}
+    <div class="col-md-6 col-lg-4">
+        <div class="firstaid-section h-100 fade-in"
+             style="animation-delay:{{ loop.index0 * 0.05 }}s;
+                    background:{{ bg }}!important;border-color:{{ border }}!important">
+            <div class="d-flex align-items-center gap-2 mb-3">
+                <span style="font-size:1.6rem;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2))">{{ emoji }}</span>
+                <h6 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:1.1rem;
+                            font-weight:500;letter-spacing:-0.01em;color:var(--text-primary)">{{ title }}</h6>
+            </div>
+            <ul>
+                {% for tip in tips %}
+                <li>{{ tip }}</li>
+                {% endfor %}
+            </ul>
+            {% if link == 'breathing' %}
+            <div class="mt-3">
+                <a href="{{ url_for('tools.breathing') }}" class="btn btn-outline-secondary btn-sm">
+                    <i class="fas fa-wind me-1"></i> {{ _('Try Breathing') }}
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- General tips -->
+<div class="card fade-in mb-4" style="animation-delay:0.30s">
+    <div class="card-header">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;letter-spacing:-0.01em">
+            <i class="fas fa-lightbulb me-2" style="color:var(--accent-gold);opacity:0.7;font-size:0.85rem"></i>
+            {{ _('General Tips') }}
+        </span>
+    </div>
+    <div class="card-body">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <span class="section-label">{{ _('Daily Practices') }}</span>
+                <ul style="color:var(--text-secondary);font-size:0.875rem;padding-left:1.3rem;
+                            line-height:1.9;margin:0">
+                    <li>{{ _('Regular exercise (30 min/day)') }}</li>
+                    <li>{{ _('Adequate sleep (7-9 hours)') }}</li>
+                    <li>{{ _('Healthy, balanced diet') }}</li>
+                    <li>{{ _('Daily meditation or mindfulness') }}</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <span class="section-label">{{ _('When to Seek Help') }}</span>
+                <ul style="color:var(--text-secondary);font-size:0.875rem;padding-left:1.3rem;
+                            line-height:1.9;margin:0">
+                    <li>{{ _('Persistent sadness (>2 weeks)') }}</li>
+                    <li>{{ _('Thoughts of self-harm') }}</li>
+                    <li>{{ _('Inability to function daily') }}</li>
+                    <li>{{ _('Severe anxiety or panic attacks') }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Disclaimer -->
+<div class="alert alert-warning fade-in" style="animation-delay:0.35s" role="alert">
+    <i class="fas fa-exclamation-triangle me-2"></i>
+    <strong>{{ _('Disclaimer:') }}</strong>
+    {{ _('This is not a substitute for professional mental health care. If you are in crisis, please contact emergency services or a mental health professional immediately.') }}
+</div>
+
+{% endblock %}

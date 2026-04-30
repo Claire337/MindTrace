@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Weekly Insight') }} — MindTrace{% endblock %}
+
+{% block content %}
+{% set emoji_map = {'happy':'😊','calm':'😌','anxious':'😰','sad':'😢','angry':'😠','neutral':'😐'} %}
+
+<!-- Back -->
+<div class="mb-4 fade-in-up">
+    <a href="{{ url_for('mood.history') }}" class="btn btn-outline-secondary btn-sm">
+        <i class="fas fa-arrow-left me-1"></i> {{ _('Back') }}
+    </a>
+</div>
+
+<!-- Header -->
+<div class="mb-5 fade-in-up" style="animation-delay:0.05s">
+    <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;
+               color:var(--text-muted);margin-bottom:0.5rem">
+        📈 {{ _('Weekly Summary') }}
+    </p>
+    <h1 class="display-title" style="font-size:2rem;margin-bottom:0.4rem">
+        {{ _('Your Week in Review') }}
+    </h1>
+    <p style="color:var(--text-muted);font-size:0.875rem;margin:0">
+        {{ _('Your emotional overview for the past 7 days') }}
+    </p>
+    <div class="accent-line mt-3 mb-0"></div>
+</div>
+
+<!-- Stats row -->
+<div class="row g-3 mb-5">
+    <div class="col-6 col-md-3 fade-in stagger-1">
+        <div class="stat-card">
+            <div class="stat-number">{{ entries|length }}</div>
+            <div class="stat-label">{{ _('Entries This Week') }}</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3 fade-in stagger-2">
+        <div class="stat-card">
+            {% if entries %}
+            <div class="stat-number">
+                {{ "%.1f"|format((entries|map(attribute='intensity')|list|sum) / entries|length) }}
+            </div>
+            {% else %}
+            <div class="stat-number" style="-webkit-text-fill-color:var(--text-muted)">—</div>
+            {% endif %}
+            <div class="stat-label">{{ _('Avg Intensity') }}</div>
+        </div>
+    </div>
+</div>
+
+<!-- Main insight card -->
+<div class="card insight-card fade-in mb-5 stagger-3">
+    <div class="card-header">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;letter-spacing:-0.01em">
+            <i class="fas fa-robot me-2" style="color:var(--accent-secondary);opacity:0.7;font-size:0.85rem"></i>
+            {{ _('AI Weekly Analysis') }}
+        </span>
+    </div>
+    <div class="card-body">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;
+                   line-height:1.85;color:var(--text-secondary);
+                   font-style:italic;margin:0;letter-spacing:0.01em">
+            "{{ insight.content }}"
+        </p>
+        <div class="mt-3 pt-3 d-flex align-items-center justify-content-between"
+             style="border-top:1px solid var(--border-subtle)">
+            <span style="font-size:0.73rem;color:var(--text-muted)">
+                <i class="fas fa-clock me-1"></i>
+                {{ _('Generated') }}: {{ insight.generated_at.strftime('%B %d, %Y') }}
+            </span>
+            <a href="{{ url_for('insights.weekly_insight') }}?refresh=1"
+               class="btn btn-sm btn-outline-secondary"
+               style="font-size:0.75rem;padding:0.25rem 0.75rem"
+               onclick="this.innerHTML='<i class=\'fas fa-spinner fa-spin me-1\'></i>Regenerating…';this.style.pointerEvents='none'">
+                <i class="fas fa-sync-alt me-1"></i> Regenerate
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Entries this week -->
+{% if entries %}
+<div class="card fade-in stagger-4">
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;letter-spacing:-0.01em">
+            <i class="fas fa-list me-2" style="opacity:0.4;font-size:0.85rem"></i>
+            {{ _("This Week's Entries") }}
+        </span>
+        <span style="font-size:0.75rem;color:var(--text-muted)">{{ entries|length }} entries</span>
+    </div>
+    <div class="card-body">
+        {% for entry in entries %}
+        <a href="{{ url_for('mood.view_entry', entry_id=entry.id) }}"
+           class="text-decoration-none">
+            <div class="entry-card d-flex align-items-center gap-3"
+                 style="animation-delay:{{ loop.index0 * 0.06 }}s">
+                <div class="entry-mood-emoji flex-shrink-0">
+                    {{ emoji_map.get(entry.mood_type,'😐') }}
+                </div>
+                <div class="flex-grow-1">
+                    <div style="font-size:0.875rem;font-weight:500;color:var(--text-primary);margin-bottom:2px">
+                        {{ entry.date.strftime('%A, %B %d') }}
+                    </div>
+                    <div style="font-size:0.78rem;color:var(--text-muted)">
+                        {{ entry.mood_type.capitalize() }} · {{ entry.intensity }}/10
+                    </div>
+                </div>
+                {% if entry.sentiment_label %}
+                <span class="sentiment-badge sentiment-{{ entry.sentiment_label|lower }}">
+                    {{ entry.sentiment_label }}
+                </span>
+                {% endif %}
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<div class="text-center py-5 fade-in stagger-4">
+    <div style="font-size:3.5rem;opacity:0.15;margin-bottom:1.25rem;filter:grayscale(0.3)">📊</div>
+    <p style="color:var(--text-muted);margin-bottom:1.25rem">{{ _('No entries this week yet') }}</p>
+    <a href="{{ url_for('mood.new_entry') }}" class="btn btn-primary">
+        {{ _('New Entry') }}
+    </a>
+</div>
+{% endif %}
+
+{% endblock %}

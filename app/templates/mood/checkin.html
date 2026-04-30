@@ -1,0 +1,336 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('New Entry') }} — MindTrace{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+<div class="col-lg-7 col-xl-6">
+
+    <div class="mb-5 fade-in-up">
+        <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;
+                   color:var(--text-muted);margin-bottom:0.5rem">
+            <i class="fas fa-feather-alt me-1" style="opacity:0.6"></i>
+            {{ _('New Entry') }}
+        </p>
+        <h1 class="display-title" style="font-size:2rem;margin-bottom:0.5rem">
+            {{ _('How are you feeling?') }}
+        </h1>
+        <div class="accent-line" style="margin-bottom:0"></div>
+    </div>
+
+    <form method="POST" id="checkinForm">
+
+        <!-- ─── Date ──────────────────────────────────────── -->
+        <div class="card fade-in mb-4 stagger-1">
+            <div class="card-body">
+                <label for="date" class="section-label">
+                    <i class="fas fa-calendar-day me-1"></i> {{ _('Date') }}
+                </label>
+                <input type="date" class="form-control" id="date" name="date"
+                       value="{{ request.form.get('date', '') or today_date }}" required>
+            </div>
+        </div>
+
+        <!-- ─── Mood Selector ─────────────────────────────── -->
+        <div class="card fade-in mb-4 stagger-2">
+            <div class="card-body">
+                <span class="section-label">
+                    <i class="fas fa-heart me-1"></i> {{ _('Choose your mood') }}
+                </span>
+                <div class="row g-2 mt-1" id="moodGrid">
+                    {% set moods = [
+                        ('happy',   '😊', _('Happy')),
+                        ('calm',    '😌', _('Calm')),
+                        ('anxious', '😰', _('Anxious')),
+                        ('sad',     '😢', _('Sad')),
+                        ('angry',   '😠', _('Angry')),
+                        ('neutral', '😐', _('Neutral'))
+                    ] %}
+                    {% for mood_val, emoji, label in moods %}
+                    <div class="col-6 col-md-4">
+                        <input type="radio" name="mood_type" value="{{ mood_val }}"
+                               id="mood_{{ mood_val }}" class="d-none mood-radio" required>
+                        <label for="mood_{{ mood_val }}"
+                               class="mood-btn" data-mood="{{ mood_val }}">
+                            <span class="mood-emoji">{{ emoji }}</span>
+                            <span>{{ label }}</span>
+                        </label>
+                    </div>
+                    {% endfor %}
+
+                    <!-- Custom mood -->
+                    <div class="col-6 col-md-4">
+                        <input type="radio" name="mood_type" value="__custom__"
+                               id="mood_custom" class="d-none mood-radio">
+                        <label for="mood_custom" class="mood-btn" data-mood="__custom__" id="customMoodBtn">
+                            <span class="mood-emoji">✏️</span>
+                            <span id="customMoodLabel">{{ _('Custom…') }}</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Custom mood text input (shown when Custom is selected) -->
+                <div id="customMoodInputWrap" class="mt-3" style="display:none">
+                    <input type="text" class="form-control" id="customMoodInput"
+                           placeholder="{{ _('Type your mood (e.g. tired, excited, numb…)') }}"
+                           maxlength="40"
+                           style="font-size:0.9rem">
+                    <div class="form-text">{{ _('Press Enter or click elsewhere to confirm') }}</div>
+                </div>
+
+                <!-- Hidden field that actually holds the final mood value -->
+                <input type="hidden" name="mood_type" id="moodTypeFinal">
+            </div>
+        </div>
+
+        <!-- ─── Intensity ─────────────────────────────────── -->
+        <div class="card fade-in mb-4 stagger-3">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <span class="section-label mb-0">
+                        <i class="fas fa-tachometer-alt me-1"></i> {{ _('Intensity') }}
+                    </span>
+                    <span id="intensity-display"
+                          style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;
+                                 font-weight:600;line-height:1;letter-spacing:-0.02em;
+                                 background:linear-gradient(140deg,var(--accent-primary),var(--accent-secondary));
+                                 -webkit-background-clip:text;-webkit-text-fill-color:transparent">
+                        5
+                    </span>
+                </div>
+                <input type="range" class="form-range" id="intensity" name="intensity"
+                       min="1" max="10" value="5" required>
+                <div class="d-flex justify-content-between mt-2">
+                    <span style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0.04em">{{ _('Mild') }}</span>
+                    <span style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0.04em">{{ _('Intense') }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ─── Journal ───────────────────────────────────── -->
+        <div class="card fade-in mb-4 stagger-4">
+            <div class="card-body">
+                <span class="section-label">
+                    <i class="fas fa-pen me-1"></i> {{ _("What's on your mind?") }}
+                </span>
+                <textarea class="form-control" id="journal_text" name="journal_text"
+                          rows="6" style="resize:vertical;min-height:150px;line-height:1.8"
+                          placeholder="{{ _('Describe what happened, what triggered this feeling, your thoughts...') }}"
+                          required></textarea>
+                <div class="d-flex justify-content-between mt-2">
+                    <span class="form-text">{{ _('Be as detailed as you want') }}</span>
+                    <span class="form-text" id="char-count" style="font-variant-numeric:tabular-nums">0 {{ _('chars') }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ─── Tags ──────────────────────────────────────── -->
+        <div class="card fade-in mb-5 stagger-5">
+            <div class="card-body">
+                <span class="section-label">
+                    <i class="fas fa-tags me-1"></i>
+                    {{ _('Tags') }}
+                    <span style="color:var(--text-muted);font-size:0.76rem;text-transform:none;
+                                  letter-spacing:0;margin-left:0.4rem;font-weight:400">
+                        ({{ _('optional, multiple allowed') }})
+                    </span>
+                </span>
+                <div class="d-flex flex-wrap gap-2 mt-2" id="tagContainer">
+                    {% set tag_list = ['Academic', 'Work', 'Relationships', 'Health', 'Sleep', 'Other'] %}
+                    {% for tag in tag_list %}
+                    <label class="tag-pill" for="tag_{{ tag }}">
+                        <input class="d-none tag-checkbox" type="checkbox" name="tags"
+                               value="{{ tag }}" id="tag_{{ tag }}">
+                        {{ tag }}
+                    </label>
+                    {% endfor %}
+                </div>
+
+                <!-- Custom tag input -->
+                <div class="mt-3 d-flex gap-2 align-items-center">
+                    <input type="text" id="customTagInput" class="form-control form-control-sm"
+                           style="max-width:200px"
+                           placeholder="{{ _('Add custom tag…') }}"
+                           maxlength="30">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" id="addTagBtn">
+                        <i class="fas fa-plus me-1"></i>{{ _('Add') }}
+                    </button>
+                </div>
+                <!-- Custom tags go here as hidden inputs + visible pills -->
+                <div class="d-flex flex-wrap gap-2 mt-2" id="customTagsDisplay"></div>
+            </div>
+        </div>
+
+        <!-- ─── Submit ─────────────────────────────────────── -->
+        <div class="d-flex gap-3 justify-content-end fade-in" style="animation-delay:0.32s">
+            <a href="{{ url_for('main.dashboard') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-times me-1"></i> {{ _('Cancel') }}
+            </a>
+            <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+                <i class="fas fa-save me-2"></i> {{ _('Save Entry') }}
+            </button>
+        </div>
+    </form>
+</div>
+</div>
+
+<style>
+.tag-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.9rem;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    background: var(--bg-glass);
+    transition: all 0.22s var(--ease-smooth);
+    user-select: none;
+    letter-spacing: 0.02em;
+}
+.tag-pill:hover {
+    border-color: rgba(180,157,250,0.35);
+    color: var(--accent-primary);
+    background: rgba(180,157,250,0.07);
+    transform: translateY(-1px);
+}
+.tag-pill.selected {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    background: rgba(180,157,250,0.12);
+    box-shadow: 0 2px 8px rgba(180,157,250,0.15);
+}
+.custom-tag-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    border: 1px dashed var(--accent-primary);
+    color: var(--accent-primary);
+    background: rgba(180,157,250,0.08);
+}
+.custom-tag-pill .remove-tag {
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.15s;
+    font-size: 0.75rem;
+}
+.custom-tag-pill .remove-tag:hover { opacity: 1; }
+</style>
+
+<script>
+// ── Intensity display ────────────────────────────────────────
+const intensityInput = document.getElementById('intensity');
+const intensityDisplay = document.getElementById('intensity-display');
+intensityInput.addEventListener('input', function() {
+    intensityDisplay.textContent = this.value;
+});
+
+// ── Mood selection (radio + custom) ─────────────────────────
+const moodTypeFinal = document.getElementById('moodTypeFinal');
+// Remove the duplicate "name" from the original radios; moodTypeFinal carries the real value
+document.querySelectorAll('.mood-radio').forEach(r => r.removeAttribute('name'));
+
+document.querySelectorAll('.mood-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const mood = this.dataset.mood;
+        if (mood === '__custom__') {
+            document.getElementById('customMoodInputWrap').style.display = 'block';
+            document.getElementById('customMoodInput').focus();
+            // Don't set final value yet — wait for text input
+            moodTypeFinal.value = '';
+        } else {
+            document.getElementById('customMoodInputWrap').style.display = 'none';
+            moodTypeFinal.value = mood;
+        }
+    });
+});
+
+const customMoodInput = document.getElementById('customMoodInput');
+function applyCustomMood() {
+    const val = customMoodInput.value.trim();
+    if (val) {
+        moodTypeFinal.value = val;
+        document.getElementById('customMoodLabel').textContent = val + ' ✏️';
+    }
+}
+customMoodInput.addEventListener('blur', applyCustomMood);
+customMoodInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') { e.preventDefault(); applyCustomMood(); }
+});
+
+// ── Character count ──────────────────────────────────────────
+const journal = document.getElementById('journal_text');
+const charCount = document.getElementById('char-count');
+journal.addEventListener('input', function() {
+    const n = this.value.length;
+    // Keep the translated "chars" label suffix
+    const suffix = charCount.dataset.suffix || ' chars';
+    charCount.textContent = n + suffix;
+    if (n === 0) charCount.style.color = 'var(--text-muted)';
+    else if (n < 50) charCount.style.color = 'var(--accent-gold)';
+    else if (n < 150) charCount.style.color = 'var(--text-secondary)';
+    else charCount.style.color = 'var(--accent-secondary)';
+});
+
+// ── Tag checkboxes ───────────────────────────────────────────
+document.querySelectorAll('.tag-pill').forEach(pill => {
+    const cb = pill.querySelector('.tag-checkbox');
+    cb.addEventListener('change', function() {
+        pill.classList.toggle('selected', this.checked);
+    });
+});
+
+// ── Custom tag add ───────────────────────────────────────────
+const customTagInput = document.getElementById('customTagInput');
+const customTagsDisplay = document.getElementById('customTagsDisplay');
+
+function addCustomTag() {
+    const val = customTagInput.value.trim();
+    if (!val) return;
+    // Avoid duplicates
+    const existing = Array.from(customTagsDisplay.querySelectorAll('input[type=hidden]'))
+                          .map(i => i.value.toLowerCase());
+    if (existing.includes(val.toLowerCase())) {
+        customTagInput.value = '';
+        return;
+    }
+
+    // Create hidden input for form submission
+    const hidden = document.createElement('input');
+    hidden.type = 'hidden';
+    hidden.name = 'tags';
+    hidden.value = val;
+
+    // Create visible pill
+    const pill = document.createElement('span');
+    pill.className = 'custom-tag-pill';
+    pill.innerHTML = val + ' <span class="remove-tag" title="Remove">×</span>';
+    pill.appendChild(hidden);
+    pill.querySelector('.remove-tag').addEventListener('click', () => pill.remove());
+
+    customTagsDisplay.appendChild(pill);
+    customTagInput.value = '';
+}
+
+document.getElementById('addTagBtn').addEventListener('click', addCustomTag);
+customTagInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') { e.preventDefault(); addCustomTag(); }
+});
+
+// ── Form submit validation ────────────────────────────────────
+document.getElementById('checkinForm').addEventListener('submit', function(e) {
+    if (!moodTypeFinal.value) {
+        e.preventDefault();
+        // Highlight the mood section
+        document.querySelector('.mood-btn').closest('.card').scrollIntoView({behavior:'smooth'});
+        alert('{{ _("Please select or enter your mood.") }}');
+    }
+});
+</script>
+{% endblock %}

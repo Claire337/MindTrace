@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block title %}{{ entry.date.strftime('%B %d') }} — MindTrace{% endblock %}
+
+{% block content %}
+{% set emoji_map = {'happy':'😊','calm':'😌','anxious':'😰','sad':'😢','angry':'😠','neutral':'😐'} %}
+
+<!-- Header -->
+<div class="d-flex align-items-start justify-content-between flex-wrap gap-3 mb-5 fade-in-up">
+    <div class="d-flex align-items-center gap-4">
+        <div style="font-size:3rem;line-height:1;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.4))">
+            {{ emoji_map.get(entry.mood_type, '😐') }}
+        </div>
+        <div>
+            <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;
+                       color:var(--text-muted);margin-bottom:0.4rem">
+                {{ entry.mood_type.capitalize() }} · {{ entry.intensity }}/10
+            </p>
+            <h1 class="display-title" style="font-size:2rem;margin:0">
+                {{ entry.date.strftime('%B %d, %Y') }}
+            </h1>
+        </div>
+    </div>
+    <div class="d-flex gap-2 align-self-start">
+        <a href="{{ url_for('mood.edit_entry', entry_id=entry.id) }}"
+           class="btn btn-outline-primary btn-sm">
+            <i class="fas fa-edit me-1"></i> {{ _('Edit') }}
+        </a>
+        <a href="{{ url_for('mood.history') }}"
+           class="btn btn-outline-secondary btn-sm">
+            <i class="fas fa-arrow-left me-1"></i> {{ _('Back') }}
+        </a>
+    </div>
+</div>
+
+<div class="accent-line" style="margin-bottom:2rem"></div>
+
+<div class="row g-4">
+    <!-- Left column -->
+    <div class="col-lg-7">
+
+        <!-- Intensity bar -->
+        <div class="card fade-in mb-4 stagger-1">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <span class="section-label mb-0">{{ _('Intensity Level') }}</span>
+                    <span style="font-family:'Cormorant Garamond',serif;font-size:2.4rem;
+                                 font-weight:600;line-height:1;letter-spacing:-0.02em;
+                                 background:linear-gradient(140deg,var(--accent-primary),var(--accent-secondary));
+                                 -webkit-background-clip:text;-webkit-text-fill-color:transparent">
+                        {{ entry.intensity }}<small style="font-size:0.5em;opacity:0.6">/10</small>
+                    </span>
+                </div>
+                <div class="progress" style="height:8px">
+                    <div class="progress-bar" role="progressbar"
+                         style="width:{{ (entry.intensity / 10) * 100 }}%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journal entry -->
+        <div class="card fade-in mb-4 stagger-2">
+            <div class="card-header">
+                <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;letter-spacing:-0.01em">
+                    <i class="fas fa-pen-nib me-2" style="color:var(--accent-primary);opacity:0.6;font-size:0.85rem"></i>
+                    {{ _('Journal Entry') }}
+                </span>
+            </div>
+            <div class="card-body">
+                <p style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;
+                          line-height:1.9;color:var(--text-secondary);
+                          white-space:pre-wrap;margin:0;letter-spacing:0.01em">{{ entry.journal_text }}</p>
+            </div>
+        </div>
+
+        <!-- Tags -->
+        {% if entry.tags %}
+        <div class="card fade-in mb-4 stagger-3">
+            <div class="card-body py-3" style="padding-top:1rem !important;padding-bottom:1rem !important">
+                <span class="section-label">{{ _('Tags') }}</span>
+                {% for tag in entry.tags.split(',') %}
+                <span class="keyword-label">{{ tag.strip() }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Timestamps -->
+        <div style="font-size:0.75rem;color:var(--text-muted);padding:0 0.25rem;opacity:0.7">
+            <i class="fas fa-clock me-1"></i>
+            {{ _('Last updated') }}:
+            {{ entry.updated_at.strftime('%B %d, %Y %I:%M %p') if entry.updated_at else entry.created_at.strftime('%B %d, %Y %I:%M %p') }}
+        </div>
+    </div>
+
+    <!-- Right column: AI Analysis -->
+    <div class="col-lg-5">
+        {% if entry.sentiment_label %}
+        <div class="card fade-in insight-card mb-4 stagger-1">
+            <div class="card-header">
+                <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;letter-spacing:-0.01em">
+                    <i class="fas fa-robot me-2" style="color:var(--accent-secondary);opacity:0.7;font-size:0.85rem"></i>
+                    {{ _('AI Analysis') }}
+                </span>
+            </div>
+            <div class="card-body">
+                <!-- Sentiment -->
+                <div class="mb-4">
+                    <span class="section-label">{{ _('Sentiment') }}</span>
+                    <span class="sentiment-badge sentiment-{{ entry.sentiment_label|lower }}">
+                        {% if entry.sentiment_label == 'Positive' %}✨
+                        {% elif entry.sentiment_label == 'Negative' %}💧
+                        {% else %}⚖️{% endif %}
+                        {{ entry.sentiment_label }}
+                    </span>
+                </div>
+
+                <!-- Emotion labels -->
+                {% if entry.get_emotion_labels() %}
+                <div class="mb-4">
+                    <span class="section-label">{{ _('Detected Emotions') }}</span>
+                    <div>
+                        {% for emotion in entry.get_emotion_labels() %}
+                        <span class="emotion-label">{{ emotion }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Keywords -->
+                {% if entry.get_keywords() %}
+                <div class="mb-3">
+                    <span class="section-label">{{ _('Keywords') }}</span>
+                    <div>
+                        {% for kw in entry.get_keywords() %}
+                        <span class="keyword-label">{{ kw }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- NLP Summary -->
+                {% if entry.nlp_summary %}
+                <div style="margin-top:0.85rem;padding-top:0.85rem;border-top:1px solid var(--border-subtle)">
+                    <p style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;
+                               color:var(--text-muted);font-style:italic;
+                               line-height:1.7;margin:0">
+                        "{{ entry.nlp_summary }}"
+                    </p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Get AI Insight CTA -->
+        <div class="card fade-in stagger-2">
+            <div class="card-body text-center py-4">
+                <div style="font-size:2.5rem;margin-bottom:0.85rem;line-height:1;
+                             filter:drop-shadow(0 4px 8px rgba(180,157,250,0.3))">🧠</div>
+                <h6 style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;
+                            font-weight:500;color:var(--text-secondary);margin-bottom:0.5rem;
+                            letter-spacing:-0.01em">
+                    {{ _('Want deeper insight?') }}
+                </h6>
+                <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1.25rem;line-height:1.6">
+                    {{ _('Get personalised AI analysis and recommendations') }}
+                </p>
+                <a href="{{ url_for('insights.daily_insight', entry_id=entry.id) }}"
+                   class="btn btn-primary w-100">
+                    <i class="fas fa-lightbulb me-2"></i> {{ _('Get AI Insight') }}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

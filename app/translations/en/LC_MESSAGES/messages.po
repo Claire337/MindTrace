@@ -1,0 +1,552 @@
+# English translations for MindTrace
+msgid ""
+msgstr ""
+"Project-Id-Version: MindTrace 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-09 10:00+0000\n"
+"PO-Revision-Date: 2026-02-09 10:00+0000\n"
+"Last-Translator: \n"
+"Language: en\n"
+"Language-Team: English\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 4.0.0\n"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "New Entry"
+msgstr "New Entry"
+
+msgid "History"
+msgstr "History"
+
+msgid "Analytics"
+msgstr "Analytics"
+
+msgid "Tools"
+msgstr "Tools"
+
+msgid "Settings"
+msgstr "Settings"
+
+msgid "Logout"
+msgstr "Logout"
+
+msgid "Login"
+msgstr "Login"
+
+msgid "Register"
+msgstr "Register"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Password"
+msgstr "Password"
+
+msgid "Remember me"
+msgstr "Remember me"
+
+msgid "Don't have an account?"
+msgstr "Don't have an account?"
+
+msgid "Register here"
+msgstr "Register here"
+
+msgid "Demo Account:"
+msgstr "Demo Account:"
+
+msgid "Username"
+msgstr "Username"
+
+msgid "Confirm Password"
+msgstr "Confirm Password"
+
+msgid "Minimum 8 characters"
+msgstr "Minimum 8 characters"
+
+msgid "Already have an account?"
+msgstr "Already have an account?"
+
+msgid "Login here"
+msgstr "Login here"
+
+msgid "Good Morning"
+msgstr "Good Morning"
+
+msgid "Good Afternoon"
+msgstr "Good Afternoon"
+
+msgid "Good Evening"
+msgstr "Good Evening"
+
+msgid "Welcome to MindTrace - Track your emotions, discover patterns, and receive AI insights."
+msgstr "Welcome to MindTrace - Track your emotions, discover patterns, and receive AI insights."
+
+msgid "How are you feeling today?"
+msgstr "How are you feeling today?"
+
+msgid "Check In"
+msgstr "Check In"
+
+msgid "View your progress"
+msgstr "View your progress"
+
+msgid "View History"
+msgstr "View History"
+
+msgid "Dashboard content will be populated with your entries"
+msgstr "Dashboard content will be populated with your entries"
+
+msgid "Account Information"
+msgstr "Account Information"
+
+msgid "Email:"
+msgstr "Email:"
+
+msgid "Username:"
+msgstr "Username:"
+
+msgid "Member Since:"
+msgstr "Member Since:"
+
+msgid "Language Preference"
+msgstr "Language Preference"
+
+msgid "More settings coming soon..."
+msgstr "More settings coming soon..."
+
+msgid "Please log in to access this page."
+msgstr "Please log in to access this page."
+
+msgid "AI-generated content is not a substitute for professional mental health support."
+msgstr "AI-generated content is not a substitute for professional mental health support."
+
+msgid "Breathing Trainer"
+msgstr "Breathing Trainer"
+
+msgid "First Aid Card"
+msgstr "First Aid Card"
+
+msgid "Emotion First Aid"
+msgstr "Emotion First Aid"
+
+msgid "Daily Insight"
+msgstr "Daily Insight"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Select date for this entry"
+msgstr "Select date for this entry"
+
+msgid "How are you feeling?"
+msgstr "How are you feeling?"
+
+msgid "Intensity"
+msgstr "Intensity"
+
+msgid "How intense is this feeling?"
+msgstr "How intense is this feeling?"
+
+msgid "What happened?"
+msgstr "What happened?"
+
+msgid "Describe what happened, what triggered this feeling, your thoughts..."
+msgstr "Describe what happened, what triggered this feeling, your thoughts..."
+
+msgid "Be as detailed as you want"
+msgstr "Be as detailed as you want"
+
+msgid "Tags"
+msgstr "Tags"
+
+msgid "optional"
+msgstr "optional"
+
+msgid "Save Entry"
+msgstr "Save Entry"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Filter by mood"
+msgstr "Filter by mood"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Clear"
+msgstr "Clear"
+
+msgid "No entries yet"
+msgstr "No entries yet"
+
+msgid "Create your first entry"
+msgstr "Create your first entry"
+
+msgid "Previous"
+msgstr "Previous"
+
+msgid "Next"
+msgstr "Next"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Back"
+msgstr "Back"
+
+msgid "Journal Entry"
+msgstr "Journal Entry"
+
+msgid "Last updated"
+msgstr "Last updated"
+
+msgid "AI Analysis"
+msgstr "AI Analysis"
+
+msgid "Sentiment"
+msgstr "Sentiment"
+
+msgid "Detected Emotions"
+msgstr "Detected Emotions"
+
+msgid "Keywords"
+msgstr "Keywords"
+
+msgid "Edit Entry"
+msgstr "Edit Entry"
+
+msgid "Update Entry"
+msgstr "Update Entry"
+
+msgid "AI Insight"
+msgstr "AI Insight"
+
+msgid "Back to Entry"
+msgstr "Back to Entry"
+
+msgid "Suggestions"
+msgstr "Suggestions"
+
+msgid "Today's Small Task"
+msgstr "Today's Small Task"
+
+msgid "Generated"
+msgstr "Generated"
+
+msgid "Context"
+msgstr "Context"
+
+msgid "Mood"
+msgstr "Mood"
+
+msgid "Weekly Summary"
+msgstr "Weekly Summary"
+
+msgid "This Week's Entries"
+msgstr "This Week's Entries"
+
+msgid "No entries this week yet"
+msgstr "No entries this week yet"
+
+msgid "Entries This Week"
+msgstr "Entries This Week"
+
+msgid "Average Intensity"
+msgstr "Average Intensity"
+
+msgid "Total Entries"
+msgstr "Total Entries"
+
+msgid "Max Intensity"
+msgstr "Max Intensity"
+
+msgid "Min Intensity"
+msgstr "Min Intensity"
+
+msgid "Mood Intensity Trend"
+msgstr "Mood Intensity Trend"
+
+msgid "Mood Distribution"
+msgstr "Mood Distribution"
+
+msgid "Recent Entries"
+msgstr "Recent Entries"
+
+msgid "Sentiment"
+msgstr "Sentiment"
+
+msgid "No entries to analyze yet"
+msgstr "No entries to analyze yet"
+
+msgid "Wellness Tools & Resources"
+msgstr "Wellness Tools & Resources"
+
+msgid "Practical tools to help manage emotions and improve mental wellbeing"
+msgstr "Practical tools to help manage emotions and improve mental wellbeing"
+
+msgid "Breathing Trainer"
+msgstr "Breathing Trainer"
+
+msgid "Guided breathing exercises using the 4-7-8 technique to reduce anxiety and stress"
+msgstr "Guided breathing exercises using the 4-7-8 technique to reduce anxiety and stress"
+
+msgid "Start"
+msgstr "Start"
+
+msgid "Emotion First Aid"
+msgstr "Emotion First Aid"
+
+msgid "Quick tips and techniques for managing difficult emotions like anxiety, sadness, and anger"
+msgstr "Quick tips and techniques for managing difficult emotions like anxiety, sadness, and anger"
+
+msgid "Learn More"
+msgstr "Learn More"
+
+msgid "Resources"
+msgstr "Resources"
+
+msgid "Collection of articles and guides about mental health and emotional wellbeing"
+msgstr "Collection of articles and guides about mental health and emotional wellbeing"
+
+msgid "Coming Soon"
+msgstr "Coming Soon"
+
+msgid "Quick Tips"
+msgstr "Quick Tips"
+
+msgid "When You Feel Anxious"
+msgstr "When You Feel Anxious"
+
+msgid "Try the breathing trainer for immediate relief. The 4-7-8 technique takes just a few minutes."
+msgstr "Try the breathing trainer for immediate relief. The 4-7-8 technique takes just a few minutes."
+
+msgid "When You Feel Overwhelmed"
+msgstr "When You Feel Overwhelmed"
+
+msgid "Check the Emotion First Aid for practical coping strategies and immediate relief techniques."
+msgstr "Check the Emotion First Aid for practical coping strategies and immediate relief techniques."
+
+msgid "Daily Routine"
+msgstr "Daily Routine"
+
+msgid "Incorporate a 5-minute breathing session into your morning or evening routine for better emotional regulation."
+msgstr "Incorporate a 5-minute breathing session into your morning or evening routine for better emotional regulation."
+
+msgid "Track and Reflect"
+msgstr "Track and Reflect"
+
+msgid "Log your mood regularly and use the analytics to identify patterns and triggers."
+msgstr "Log your mood regularly and use the analytics to identify patterns and triggers."
+
+msgid "Quick breathing exercises using the 4-7-8 technique"
+msgstr "Quick breathing exercises using the 4-7-8 technique"
+
+msgid "Breathing exercises can help calm your nervous system and reduce anxiety. This 4-7-8 technique is proven to reduce stress."
+msgstr "Breathing exercises can help calm your nervous system and reduce anxiety. This 4-7-8 technique is proven to reduce stress."
+
+msgid "Instructions:"
+msgstr "Instructions:"
+
+msgid "Breathe in for 4 counts"
+msgstr "Breathe in for 4 counts"
+
+msgid "Hold for 7 counts"
+msgstr "Hold for 7 counts"
+
+msgid "Breathe out for 8 counts"
+msgstr "Breathe out for 8 counts"
+
+msgid "Repeat for several cycles"
+msgstr "Repeat for several cycles"
+
+msgid "Stop"
+msgstr "Stop"
+
+msgid "Ready to start?"
+msgstr "Ready to start?"
+
+msgid "Other Breathing Techniques"
+msgstr "Other Breathing Techniques"
+
+msgid "Box Breathing"
+msgstr "Box Breathing"
+
+msgid "Deep Breathing"
+msgstr "Deep Breathing"
+
+msgid "Quick tips and techniques to help manage difficult emotions"
+msgstr "Quick tips and techniques to help manage difficult emotions"
+
+msgid "Immediate Relief:"
+msgstr "Immediate Relief:"
+
+msgid "Use 4-7-8 breathing technique"
+msgstr "Use 4-7-8 breathing technique"
+
+msgid "Ground yourself: 5 things you see, 4 you hear, 3 you touch"
+msgstr "Ground yourself: 5 things you see, 4 you hear, 3 you touch"
+
+msgid "Take a 10-minute walk"
+msgstr "Take a 10-minute walk"
+
+msgid "Splash cold water on your face"
+msgstr "Splash cold water on your face"
+
+msgid "Try Breathing Trainer"
+msgstr "Try Breathing Trainer"
+
+msgid "Anxiety"
+msgstr "Anxiety"
+
+msgid "Sadness"
+msgstr "Sadness"
+
+msgid "Allow yourself to feel your emotions"
+msgstr "Allow yourself to feel your emotions"
+
+msgid "Reach out to someone you trust"
+msgstr "Reach out to someone you trust"
+
+msgid "Engage in activities you enjoy"
+msgstr "Engage in activities you enjoy"
+
+msgid "Practice self-compassion"
+msgstr "Practice self-compassion"
+
+msgid "Spend time in nature or sunlight"
+msgstr "Spend time in nature or sunlight"
+
+msgid "Get Support"
+msgstr "Get Support"
+
+msgid "Anger"
+msgstr "Anger"
+
+msgid "Take a 15-minute break"
+msgstr "Take a 15-minute break"
+
+msgid "Physical exercise to release energy"
+msgstr "Physical exercise to release energy"
+
+msgid "Journal your feelings"
+msgstr "Journal your feelings"
+
+msgid "Practice progressive muscle relaxation"
+msgstr "Practice progressive muscle relaxation"
+
+msgid "Channel energy into something constructive"
+msgstr "Channel energy into something constructive"
+
+msgid "Stress"
+msgstr "Stress"
+
+msgid "Prioritize: focus on most important tasks"
+msgstr "Prioritize: focus on most important tasks"
+
+msgid "Break tasks into smaller steps"
+msgstr "Break tasks into smaller steps"
+
+msgid "Take short breaks"
+msgstr "Take short breaks"
+
+msgid "Practice meditation or mindfulness"
+msgstr "Practice meditation or mindfulness"
+
+msgid "Ensure adequate sleep and nutrition"
+msgstr "Ensure adequate sleep and nutrition"
+
+msgid "Exhaustion"
+msgstr "Exhaustion"
+
+msgid "Take a nap or rest"
+msgstr "Take a nap or rest"
+
+msgid "Move your body gently"
+msgstr "Move your body gently"
+
+msgid "Hydrate and eat something nutritious"
+msgstr "Hydrate and eat something nutritious"
+
+msgid "Reduce stimulation (screen time)"
+msgstr "Reduce stimulation (screen time)"
+
+msgid "Plan realistic goals for the day"
+msgstr "Plan realistic goals for the day"
+
+msgid "Loneliness"
+msgstr "Loneliness"
+
+msgid "Join online communities"
+msgstr "Join online communities"
+
+msgid "Volunteer or help someone"
+msgstr "Volunteer or help someone"
+
+msgid "Engage in group activities"
+msgstr "Engage in group activities"
+
+msgid "General Tips"
+msgstr "General Tips"
+
+msgid "Daily Practices"
+msgstr "Daily Practices"
+
+msgid "Regular exercise (30 min/day)"
+msgstr "Regular exercise (30 min/day)"
+
+msgid "Adequate sleep (7-9 hours)"
+msgstr "Adequate sleep (7-9 hours)"
+
+msgid "Healthy diet"
+msgstr "Healthy diet"
+
+msgid "Meditation or mindfulness"
+msgstr "Meditation or mindfulness"
+
+msgid "When to Seek Help"
+msgstr "When to Seek Help"
+
+msgid "Persistent sadness (>2 weeks)"
+msgstr "Persistent sadness (>2 weeks)"
+
+msgid "Thoughts of self-harm"
+msgstr "Thoughts of self-harm"
+
+msgid "Inability to function"
+msgstr "Inability to function"
+
+msgid "Severe anxiety or panic"
+msgstr "Severe anxiety or panic"
+
+msgid "Disclaimer:"
+msgstr "Disclaimer:"
+
+msgid "This is not a substitute for professional mental health care. If you are in crisis, please contact emergency services or a mental health professional immediately."
+msgstr "This is not a substitute for professional mental health care. If you are in crisis, please contact emergency services or a mental health professional immediately."
+
+msgid "If you need support, reach out:"
+msgstr "If you need support, reach out:"
+
+msgid "Talk to a friend or family member"
+msgstr "Talk to a friend or family member"
+
+msgid "Contact a mental health professional"
+msgstr "Contact a mental health professional"
+
+msgid "Call a mental health helpline"
+msgstr "Call a mental health helpline"
+
+msgid "Visit a counseling service"
+msgstr "Visit a counseling service"
+
+msgid "Session ended"
+msgstr "Session ended"
+
+msgid "Cycle"
+msgstr "Cycle"

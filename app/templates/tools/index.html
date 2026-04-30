@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Tools') }} — MindTrace{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<div class="mb-5 fade-in-up">
+    <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;
+               color:var(--text-muted);margin-bottom:0.5rem">
+        <i class="fas fa-toolbox me-1" style="opacity:0.6"></i>
+        {{ _('Tools') }}
+    </p>
+    <h1 class="display-title" style="font-size:2rem;margin-bottom:0.4rem">
+        {{ _('Wellness Tools') }}
+    </h1>
+    <p style="color:var(--text-muted);font-size:0.875rem;margin:0;max-width:480px">
+        {{ _('Practical tools to help manage emotions and improve mental wellbeing') }}
+    </p>
+    <div class="accent-line mt-3 mb-0"></div>
+</div>
+
+<!-- Tool Cards -->
+<div class="row g-4 mb-5">
+
+    <!-- Breathing Trainer -->
+    <div class="col-md-6 col-lg-4 fade-in stagger-1">
+        <div class="tool-card h-100">
+            <div class="p-4 d-flex flex-column h-100">
+                <div class="mb-3">
+                    <span style="font-size:3rem;line-height:1;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.3))">🌬️</span>
+                </div>
+                <h5 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;
+                            letter-spacing:-0.01em;color:var(--text-primary);margin-bottom:0.5rem">
+                    {{ _('Breathing Trainer') }}
+                </h5>
+                <p style="font-size:0.875rem;color:var(--text-muted);flex-grow:1;line-height:1.7;margin-bottom:0">
+                    {{ _('Guided breathing exercises using the 4-7-8 technique to reduce anxiety and stress') }}
+                </p>
+                <a href="{{ url_for('tools.breathing') }}" class="btn btn-primary mt-4">
+                    {{ _('Start') }} <i class="fas fa-arrow-right ms-2" style="font-size:0.8rem"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emotion First Aid -->
+    <div class="col-md-6 col-lg-4 fade-in stagger-2">
+        <div class="tool-card h-100">
+            <div class="p-4 d-flex flex-column h-100">
+                <div class="mb-3">
+                    <span style="font-size:3rem;line-height:1;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.3))">🩹</span>
+                </div>
+                <h5 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;
+                            letter-spacing:-0.01em;color:var(--text-primary);margin-bottom:0.5rem">
+                    {{ _('Emotion First Aid') }}
+                </h5>
+                <p style="font-size:0.875rem;color:var(--text-muted);flex-grow:1;line-height:1.7;margin-bottom:0">
+                    {{ _('Quick tips and techniques for managing difficult emotions like anxiety, sadness, and anger') }}
+                </p>
+                <a href="{{ url_for('tools.firstaid') }}" class="btn btn-primary mt-4">
+                    {{ _('Learn More') }} <i class="fas fa-arrow-right ms-2" style="font-size:0.8rem"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resources (coming soon) -->
+    <div class="col-md-6 col-lg-4 fade-in stagger-3">
+        <div class="tool-card h-100" style="opacity:0.5;pointer-events:none">
+            <div class="p-4 d-flex flex-column h-100">
+                <div class="mb-3">
+                    <span style="font-size:3rem;line-height:1">📚</span>
+                </div>
+                <h5 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;
+                            letter-spacing:-0.01em;color:var(--text-secondary);margin-bottom:0.5rem">
+                    {{ _('Resources') }}
+                </h5>
+                <p style="font-size:0.875rem;color:var(--text-muted);flex-grow:1;line-height:1.7;margin-bottom:0">
+                    {{ _('Collection of articles and guides about mental health and emotional wellbeing') }}
+                </p>
+                <button class="btn btn-outline-secondary mt-4" disabled>
+                    {{ _('Coming Soon') }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Tips -->
+<div class="card fade-in" style="animation-delay:0.28s">
+    <div class="card-header">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;letter-spacing:-0.01em">
+            <i class="fas fa-lightbulb me-2" style="color:var(--accent-gold);opacity:0.7;font-size:0.85rem"></i>
+            {{ _('Quick Tips') }}
+        </span>
+    </div>
+    <div class="card-body">
+        <div class="row g-4">
+            {% set tips = [
+                ('😰', _('When You Feel Anxious'), _('Try the breathing trainer for immediate relief. The 4-7-8 technique takes just a few minutes.')),
+                ('🌊', _('When You Feel Overwhelmed'), _('Check the Emotion First Aid for practical coping strategies and immediate relief techniques.')),
+                ('🌅', _('Daily Routine'), _('Incorporate a 5-minute breathing session into your morning or evening routine for better emotional regulation.')),
+                ('📊', _('Track and Reflect'), _('Log your mood regularly and use the analytics to identify patterns and triggers.'))
+            ] %}
+            {% for emoji, title, text in tips %}
+            <div class="col-md-6">
+                <div style="display:flex;align-items:flex-start;gap:0.9rem">
+                    <span style="font-size:1.3rem;flex-shrink:0;margin-top:1px;line-height:1;
+                                  filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2))">{{ emoji }}</span>
+                    <div>
+                        <div style="font-size:0.875rem;font-weight:500;color:var(--text-primary);
+                                     margin-bottom:0.3rem;letter-spacing:0.01em">
+                            {{ title }}
+                        </div>
+                        <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.6">
+                            {{ text }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

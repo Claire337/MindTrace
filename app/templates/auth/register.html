@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Register') }} — MindTrace{% endblock %}
+
+{% block content %}
+<div class="auth-card fade-in-up">
+
+    <div class="auth-logo mb-1">
+        <i class="fas fa-brain"></i> MindTrace
+    </div>
+    <p class="auth-subtitle">{{ _('Begin your emotional wellness journey') }}</p>
+
+    <div class="auth-divider"></div>
+
+    <h5 class="mb-4" style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;
+                              font-weight:500;color:var(--text-secondary);letter-spacing:-0.01em">
+        {{ _('Create Account') }}
+    </h5>
+
+    <form method="POST" autocomplete="on">
+        <div class="mb-3">
+            <label for="email" class="form-label">{{ _('Email') }}</label>
+            <input type="email" class="form-control" id="email" name="email"
+                   placeholder="you@example.com" required autocomplete="email">
+        </div>
+
+        <div class="mb-3">
+            <label for="username" class="form-label">{{ _('Username') }}</label>
+            <input type="text" class="form-control" id="username" name="username"
+                   placeholder="{{ _('Your display name') }}" required autocomplete="username">
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">{{ _('Password') }}</label>
+            <input type="password" class="form-control" id="password" name="password"
+                   placeholder="Minimum 8 characters" required minlength="8" autocomplete="new-password">
+            <div class="form-text">{{ _('Minimum 8 characters') }}</div>
+        </div>
+
+        <div class="mb-4">
+            <label for="password_confirm" class="form-label">{{ _('Confirm Password') }}</label>
+            <input type="password" class="form-control" id="password_confirm" name="password_confirm"
+                   placeholder="••••••••" required autocomplete="new-password">
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 btn-lg">
+            {{ _('Create Account') }} <i class="fas fa-arrow-right ms-2" style="font-size:0.85rem"></i>
+        </button>
+    </form>
+
+    <div class="auth-divider"></div>
+
+    <p class="text-center mb-0" style="font-size:0.875rem;color:var(--text-muted)">
+        {{ _('Already have an account?') }}
+        <a href="{{ url_for('auth.login') }}" style="font-weight:500">{{ _('Login here') }}</a>
+    </p>
+</div>
+{% endblock %}

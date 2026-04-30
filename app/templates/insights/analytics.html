@@ -1,0 +1,346 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Analytics') }} — MindTrace{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<div class="mb-5 fade-in-up">
+    <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;
+               color:var(--text-muted);margin-bottom:0.5rem">
+        <i class="fas fa-chart-bar me-1" style="opacity:0.6"></i>
+        {{ _('Analytics') }}
+    </p>
+    <h1 class="display-title" style="font-size:2rem;margin-bottom:0.5rem">
+        {{ _('Your Emotional Patterns') }}
+    </h1>
+    <p style="color:var(--text-muted);font-size:0.875rem;margin:0">
+        {{ _('Your emotional patterns over the last 30 days') }}
+    </p>
+    <div class="accent-line mt-3 mb-0"></div>
+</div>
+
+<!-- Stats cards -->
+<div class="row g-3 mb-5">
+    <div class="col-6 col-lg-3 fade-in stagger-1">
+        <div class="stat-card">
+            <div class="stat-number">{{ entries|length }}</div>
+            <div class="stat-label">{{ _('Total Entries') }}</div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3 fade-in stagger-2">
+        <div class="stat-card">
+            <div class="stat-number">
+                {% if entries %}
+                    {{ "%.1f"|format((entries|map(attribute='intensity')|list|sum) / entries|length) }}
+                {% else %}—{% endif %}
+            </div>
+            <div class="stat-label">{{ _('Average Intensity') }}</div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3 fade-in stagger-3">
+        <div class="stat-card">
+            <div class="stat-number">
+                {% if entries %}
+                    {{ entries|map(attribute='intensity')|list|max }}
+                {% else %}—{% endif %}
+            </div>
+            <div class="stat-label">{{ _('Max Intensity') }}</div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3 fade-in stagger-4">
+        <div class="stat-card">
+            <div class="stat-number">
+                {% if entries %}
+                    {{ entries|map(attribute='intensity')|list|min }}
+                {% else %}—{% endif %}
+            </div>
+            <div class="stat-label">{{ _('Min Intensity') }}</div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts -->
+<div class="row g-4 mb-5">
+    <div class="col-lg-7 fade-in stagger-5">
+        <div class="card">
+            <div class="card-header">
+                <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;letter-spacing:-0.01em">
+                    <i class="fas fa-chart-line me-2" style="color:var(--accent-primary);opacity:0.6;font-size:0.85rem"></i>
+                    {{ _('Mood Intensity Trend') }}
+                </span>
+            </div>
+            <div class="card-body" style="padding:1.5rem 1.25rem !important">
+                <canvas id="intensityChart" style="max-height:240px"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5 fade-in" style="animation-delay:0.30s">
+        <div class="card">
+            <div class="card-header">
+                <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;letter-spacing:-0.01em">
+                    <i class="fas fa-chart-pie me-2" style="color:var(--accent-secondary);opacity:0.6;font-size:0.85rem"></i>
+                    {{ _('Mood Distribution') }}
+                </span>
+            </div>
+            <div class="card-body" style="padding:1.5rem 1.25rem !important">
+                <canvas id="moodChart" style="max-height:240px"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Entries Table -->
+{% if entries %}
+<div class="card fade-in" style="animation-delay:0.35s">
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;letter-spacing:-0.01em">
+            <i class="fas fa-table me-2" style="opacity:0.4;font-size:0.85rem"></i>
+            {{ _('Recent Entries') }}
+        </span>
+        <span style="font-size:0.75rem;color:var(--text-muted)">{{ entries|length }} records</span>
+    </div>
+    <div class="card-body" style="padding:0 !important">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th style="padding-left:1.5rem !important">{{ _('Date') }}</th>
+                        <th>{{ _('Mood') }}</th>
+                        <th>{{ _('Intensity') }}</th>
+                        <th>{{ _('Sentiment') }}</th>
+                        <th style="padding-right:1.5rem !important"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set emoji_map = {'happy':'😊','calm':'😌','anxious':'😰','sad':'😢','angry':'😠','neutral':'😐'} %}
+                    {% for entry in entries|reverse %}
+                    <tr>
+                        <td style="padding-left:1.5rem !important;color:var(--text-primary);font-weight:400">
+                            {{ entry.date.strftime('%b %d, %Y') }}
+                        </td>
+                        <td>{{ emoji_map.get(entry.mood_type,'😐') }} {{ entry.mood_type.capitalize() }}</td>
+                        <td>
+                            <div style="display:flex;align-items:center;gap:0.6rem">
+                                <div style="flex:1;height:3px;background:rgba(255,255,255,0.06);border-radius:2px;max-width:56px">
+                                    <div style="height:3px;background:linear-gradient(90deg,var(--accent-primary),var(--accent-secondary));border-radius:2px;width:{{ (entry.intensity/10)*100 }}%"></div>
+                                </div>
+                                <span style="font-size:0.82rem;min-width:1.5rem;text-align:right">{{ entry.intensity }}</span>
+                            </div>
+                        </td>
+                        <td>
+                            {% if entry.sentiment_label %}
+                            <span class="sentiment-badge sentiment-{{ entry.sentiment_label|lower }}">
+                                {{ entry.sentiment_label }}
+                            </span>
+                            {% else %}<span style="color:var(--text-muted)">—</span>{% endif %}
+                        </td>
+                        <td style="padding-right:1.5rem !important">
+                            <a href="{{ url_for('mood.view_entry', entry_id=entry.id) }}"
+                               class="btn btn-sm btn-outline-secondary"
+                               style="font-size:0.72rem;padding:0.22rem 0.55rem">
+                                {{ _('View') }}
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="text-center py-5 fade-in" style="animation-delay:0.35s">
+    <div style="font-size:4rem;opacity:0.15;margin-bottom:1.25rem;filter:grayscale(0.3)">📊</div>
+    <p style="color:var(--text-muted);margin-bottom:1.25rem">{{ _('No entries to analyze yet') }}</p>
+    <a href="{{ url_for('mood.new_entry') }}" class="btn btn-primary">
+        {{ _('Start Tracking') }}
+    </a>
+</div>
+{% endif %}
+
+<script>
+const entries = {{ entries_json|tojson }};
+
+// Chart.js global defaults for dark theme
+if (typeof Chart !== 'undefined') {
+    Chart.defaults.color = 'rgba(238,238,255,0.42)';
+    Chart.defaults.borderColor = 'rgba(180,157,250,0.08)';
+    Chart.defaults.font.family = "'Outfit', sans-serif";
+    Chart.defaults.font.size = 11;
+}
+
+function initCharts() {
+    if (typeof Chart === 'undefined') {
+        setTimeout(initCharts, 150);
+        return;
+    }
+
+    // 为自定义心情根据名称生成唯一十六进制颜色
+    function customMoodColor(name) {
+        let hash = 0;
+        for (let i = 0; i < name.length; i++) {
+            hash = name.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        const hue = ((hash % 360) + 360) % 360;
+        const s = 0.55, l = 0.65;
+        const c = (1 - Math.abs(2 * l - 1)) * s;
+        const x = c * (1 - Math.abs((hue / 60) % 2 - 1));
+        const m = l - c / 2;
+        let r, g, b;
+        if      (hue < 60)  { r = c; g = x; b = 0; }
+        else if (hue < 120) { r = x; g = c; b = 0; }
+        else if (hue < 180) { r = 0; g = c; b = x; }
+        else if (hue < 240) { r = 0; g = x; b = c; }
+        else if (hue < 300) { r = x; g = 0; b = c; }
+        else                { r = c; g = 0; b = x; }
+        const toHex = v => Math.round((v + m) * 255).toString(16).padStart(2, '0');
+        return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+    }
+
+    if (entries.length > 0) {
+        // ── Intensity Trend ──────────────────────────────────
+        const intensityCtx = document.getElementById('intensityChart').getContext('2d');
+
+        // Gradient fill
+        const gradient = intensityCtx.createLinearGradient(0, 0, 0, 220);
+        gradient.addColorStop(0, 'rgba(180,157,250,0.18)');
+        gradient.addColorStop(1, 'rgba(180,157,250,0.00)');
+
+        new Chart(intensityCtx, {
+            type: 'line',
+            data: {
+                labels: entries.map(e => {
+                    const d = new Date(e.date + 'T00:00:00');
+                    return d.toLocaleDateString('en-US', {month:'short', day:'numeric'});
+                }),
+                datasets: [{
+                    label: 'Intensity',
+                    data: entries.map(e => e.intensity),
+                    borderColor: '#b49dfa',
+                    backgroundColor: gradient,
+                    pointBackgroundColor: entries.map(e => {
+                        const colors = {happy:'#e8c77a', calm:'#7ab8f5', anxious:'#fb923c',
+                                        sad:'#f08fa8', angry:'#f4837a', neutral:'#8ca0b8'};
+                        if (colors[e.mood_type]) return colors[e.mood_type];
+                        return customMoodColor(e.mood_type);
+                    }),
+                    pointBorderColor: 'rgba(8,8,17,0.8)',
+                    pointBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    pointHoverBackgroundColor: '#b49dfa',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.45
+                }]
+            },
+            options: {
+                responsive: true,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(15,15,32,0.96)',
+                        borderColor: 'rgba(180,157,250,0.20)',
+                        borderWidth: 1,
+                        titleColor: 'rgba(238,238,255,0.9)',
+                        bodyColor: 'rgba(238,238,255,0.6)',
+                        padding: 10,
+                        cornerRadius: 10,
+                        callbacks: {
+                            afterBody: function(items) {
+                                const idx = items[0].dataIndex;
+                                const mood = entries[idx].mood_type;
+                                return ['Mood: ' + mood.charAt(0).toUpperCase() + mood.slice(1)];
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(180,157,250,0.05)', drawBorder: false },
+                        ticks: { color: 'rgba(238,238,255,0.35)', maxTicksLimit: 8, padding: 6 },
+                        border: { display: false }
+                    },
+                    y: {
+                        beginAtZero: false, min: 0, max: 10,
+                        grid: { color: 'rgba(180,157,250,0.05)', drawBorder: false },
+                        ticks: { color: 'rgba(238,238,255,0.35)', stepSize: 2, padding: 8 },
+                        border: { display: false }
+                    }
+                }
+            }
+        });
+
+        // ── Mood Distribution ─────────────────────────────────
+        const moodCounts = {};
+        entries.forEach(e => {
+            moodCounts[e.mood_type] = (moodCounts[e.mood_type] || 0) + 1;
+        });
+
+        const moodColors = {
+            happy:   '#e8c77a',
+            calm:    '#7ab8f5',
+            anxious: '#fb923c',
+            sad:     '#f08fa8',
+            angry:   '#f4837a',
+            neutral: '#8ca0b8'
+        };
+
+        const labels = Object.keys(moodCounts);
+        const colors = labels.map(m => moodColors[m] || customMoodColor(m));
+
+        const moodCtx = document.getElementById('moodChart').getContext('2d');
+        new Chart(moodCtx, {
+            type: 'doughnut',
+            data: {
+                labels: labels.map(m => m.charAt(0).toUpperCase() + m.slice(1)),
+                datasets: [{
+                    data: Object.values(moodCounts),
+                    backgroundColor: colors.map(c => c + 'bb'),
+                    borderColor: colors.map(c => c + 'ee'),
+                    borderWidth: 1.5,
+                    hoverOffset: 8,
+                    hoverBorderColor: colors,
+                    hoverBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                cutout: '68%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: 'rgba(238,238,255,0.50)',
+                            padding: 14,
+                            font: { size: 11 },
+                            boxWidth: 9,
+                            boxHeight: 9
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(15,15,32,0.96)',
+                        borderColor: 'rgba(180,157,250,0.20)',
+                        borderWidth: 1,
+                        titleColor: 'rgba(238,238,255,0.9)',
+                        bodyColor: 'rgba(238,238,255,0.6)',
+                        padding: 10,
+                        cornerRadius: 10
+                    }
+                }
+            }
+        });
+    }
+}
+
+// Init after DOM ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCharts);
+} else {
+    initCharts();
+}
+</script>
+
+{% endblock %}

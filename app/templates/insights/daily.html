@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Daily Insight') }} — MindTrace{% endblock %}
+
+{% block content %}
+{% set emoji_map = {'happy':'😊','calm':'😌','anxious':'😰','sad':'😢','angry':'😠','neutral':'😐'} %}
+
+<!-- Back + Regenerate -->
+<div class="mb-4 fade-in-up d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <a href="{{ url_for('mood.view_entry', entry_id=entry.id) }}" class="btn btn-outline-secondary btn-sm">
+        <i class="fas fa-arrow-left me-1"></i> {{ _('Back to Entry') }}
+    </a>
+    <a href="{{ url_for('insights.daily_insight', entry_id=entry.id, refresh=1) }}"
+       class="btn btn-sm"
+       style="background:rgba(94,231,200,0.12);border:1px solid rgba(94,231,200,0.3);
+              color:var(--accent-secondary);font-size:0.78rem"
+       onclick="this.innerHTML='<i class=\'fas fa-spinner fa-spin me-1\'></i> Generating…';this.style.pointerEvents='none'">
+        <i class="fas fa-sync-alt me-1"></i> {{ _('Regenerate with AI') }}
+    </a>
+</div>
+
+<!-- Header -->
+<div class="mb-5 fade-in-up" style="animation-delay:0.05s">
+    <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;
+               color:var(--text-muted);margin-bottom:0.5rem">
+        🧠 {{ _('AI Insight') }}
+    </p>
+    <h1 class="display-title" style="font-size:2rem;margin-bottom:0.4rem">
+        {{ entry.date.strftime('%B %d, %Y') }}
+    </h1>
+    <p style="color:var(--text-muted);font-size:0.875rem;margin:0">
+        {{ emoji_map.get(entry.mood_type,'😐') }}
+        <span style="margin-left:0.3rem">{{ entry.mood_type.capitalize() }}</span>
+        <span style="color:var(--border-subtle);margin:0 0.5rem">·</span>
+        {{ entry.intensity }}/10
+    </p>
+    <div class="accent-line mt-3 mb-0"></div>
+</div>
+
+<div class="row g-4">
+    <!-- Left: Main Insight -->
+    <div class="col-lg-8">
+
+        <!-- AI Insight content -->
+        <div class="card insight-card fade-in mb-4 stagger-1">
+            <div class="card-header">
+                <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;letter-spacing:-0.01em">
+                    <i class="fas fa-robot me-2" style="color:var(--accent-secondary);opacity:0.7;font-size:0.85rem"></i>
+                    {{ _('Personalised Insight') }}
+                </span>
+            </div>
+            <div class="card-body">
+                <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;
+                           line-height:1.85;color:var(--text-secondary);
+                           font-style:italic;margin:0;letter-spacing:0.01em">
+                    "{{ insight.content }}"
+                </p>
+                <div class="mt-3 pt-3" style="border-top:1px solid var(--border-subtle);font-size:0.73rem;color:var(--text-muted)">
+                    <i class="fas fa-clock me-1"></i>
+                    {{ _('Generated') }}: {{ insight.generated_at.strftime('%B %d, %Y %I:%M %p') }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Suggestions -->
+        {% if insight.get_suggestions() %}
+        <div class="card fade-in mb-4 stagger-2">
+            <div class="card-header">
+                <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;letter-spacing:-0.01em">
+                    <i class="fas fa-star me-2" style="color:var(--accent-gold);opacity:0.7;font-size:0.85rem"></i>
+                    {{ _('Suggestions') }}
+                </span>
+            </div>
+            <div class="card-body">
+                <ul style="padding-left:0;list-style:none;margin:0">
+                    {% for suggestion in insight.get_suggestions() %}
+                    <li class="d-flex align-items-start gap-3 mb-3{% if not loop.last %} pb-3{% endif %}"
+                        style="{% if not loop.last %}border-bottom:1px solid var(--border-subtle){% endif %}">
+                        <span style="color:var(--accent-primary);font-size:0.75rem;flex-shrink:0;
+                                     margin-top:4px;opacity:0.7">
+                            <i class="fas fa-chevron-right"></i>
+                        </span>
+                        <span style="font-size:0.9rem;color:var(--text-secondary);line-height:1.7">
+                            {{ suggestion }}
+                        </span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Small Task -->
+        {% if insight.small_task %}
+        <div class="card fade-in stagger-3"
+             style="border-color:rgba(94,231,200,0.22)!important;
+                    background:linear-gradient(140deg,rgba(94,231,200,0.05),rgba(180,157,250,0.03))!important">
+            <div class="card-body d-flex align-items-start gap-3">
+                <div style="font-size:1.5rem;flex-shrink:0;line-height:1;margin-top:2px">✅</div>
+                <div>
+                    <span class="section-label" style="color:var(--accent-secondary)">
+                        {{ _("Today's Small Task") }}
+                    </span>
+                    <p style="font-size:0.9rem;color:var(--text-secondary);margin:0;line-height:1.7">
+                        {{ insight.small_task }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Right: Context Panel -->
+    <div class="col-lg-4">
+        <div class="card fade-in stagger-1">
+            <div class="card-header">
+                <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;letter-spacing:-0.01em">
+                    <i class="fas fa-info-circle me-2" style="opacity:0.4;font-size:0.85rem"></i>
+                    {{ _('Context') }}
+                </span>
+            </div>
+            <div class="card-body">
+                <!-- Mood -->
+                <div class="mb-4">
+                    <span class="section-label">{{ _('Mood') }}</span>
+                    <div style="display:flex;align-items:center;gap:0.75rem">
+                        <span style="font-size:1.8rem;line-height:1">
+                            {{ emoji_map.get(entry.mood_type,'😐') }}
+                        </span>
+                        <div>
+                            <div style="font-size:0.95rem;color:var(--text-primary);font-weight:500">
+                                {{ entry.mood_type.capitalize() }}
+                            </div>
+                            <div style="font-size:0.75rem;color:var(--text-muted)">
+                                {{ entry.date.strftime('%B %d, %Y') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Intensity -->
+                <div class="mb-4">
+                    <span class="section-label">{{ _('Intensity') }}</span>
+                    <div class="progress mb-1" style="height:6px">
+                        <div class="progress-bar" role="progressbar"
+                             style="width:{{ (entry.intensity/10)*100 }}%"></div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span style="font-size:0.70rem;color:var(--text-muted)">1</span>
+                        <span style="font-size:0.85rem;color:var(--text-secondary);font-weight:500">
+                            {{ entry.intensity }}<small style="font-size:0.7em;opacity:0.6">/10</small>
+                        </span>
+                        <span style="font-size:0.70rem;color:var(--text-muted)">10</span>
+                    </div>
+                </div>
+
+                <!-- Sentiment -->
+                {% if entry.sentiment_label %}
+                <div class="mb-4">
+                    <span class="section-label">{{ _('Sentiment') }}</span>
+                    <span class="sentiment-badge sentiment-{{ entry.sentiment_label|lower }}">
+                        {% if entry.sentiment_label == 'Positive' %}✨
+                        {% elif entry.sentiment_label == 'Negative' %}💧
+                        {% else %}⚖️{% endif %}
+                        {{ entry.sentiment_label }}
+                    </span>
+                </div>
+                {% endif %}
+
+                <!-- Actions -->
+                <div class="divider"></div>
+                <div class="d-flex flex-column gap-2">
+                    <a href="{{ url_for('tools.breathing') }}" class="btn btn-outline-secondary btn-sm">
+                        <i class="fas fa-wind me-1"></i> {{ _('Breathing Exercise') }}
+                    </a>
+                    <a href="{{ url_for('tools.firstaid') }}" class="btn btn-outline-secondary btn-sm">
+                        <i class="fas fa-first-aid me-1"></i> {{ _('Emotion First Aid') }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
