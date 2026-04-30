@@ -13,8 +13,8 @@ if __name__ == '__main__':
     # use_reloader=True 会导致页面加载延迟（Flask 文件监控）
     # 如果想快速加载，改为 use_reloader=False
     app.run(
-        debug=app.config['DEBUG'],
-        host='127.0.0.1',
-        port=5000,
-        use_reloader=False  # 禁用自动重载，避免延迟
+    debug=app.config['DEBUG'],
+    host='0.0.0.0',
+    port=int(os.environ.get('PORT', 5000)),
+    use_reloader=False
     )
